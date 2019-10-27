@@ -1,4 +1,4 @@
 % Jim Vargas
-function RegulaFalsi()
+function RegulaFalsi(x,r,a,b)
     
 end
