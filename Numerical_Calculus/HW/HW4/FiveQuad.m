@@ -10,6 +10,6 @@ end
 
 function y=f(x)
     
-    y=exp(x);
+    y=sqrt(x);
     
 end
