@@ -25,7 +25,7 @@ def TPC(t,y,k):
     y_bar=y + h*f(t,y)
     return y + (h/2)*(f(t,k) + f(t0+(k+1)*h,y_bar))
 
-with open("Output.txt", "w") as text_file:
+with open("Output_p1.txt", "w") as text_file:
     y=y0
     t=t0
     print("\nForward Euler\n", file=text_file)
