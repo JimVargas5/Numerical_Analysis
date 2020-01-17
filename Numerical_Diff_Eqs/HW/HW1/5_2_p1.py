@@ -21,19 +21,21 @@ def Midpoint(t,y):
     y_plusHalf=y + (h/2)*f(t,y)
     t_plusHalf=t + (h/2)
     return y + h*f(t_plusHalf,y_plusHalf)
-def TPC(t,y,k):
+def TPC(t,y):
     y_bar=y + h*f(t,y)
-    return y + (h/2)*(f(t,k) + f(t0+(k+1)*h,y_bar))
+    return y + (h/2)*(f(t,y) + f(t+h,y_bar))
+
+
 
 with open("Output_p1.txt", "w") as text_file:
     y=y0
     t=t0
-    print("\nForward Euler\n", file=text_file)
+    print("Forward Euler\n", file=text_file)
     for k in range(1,steps+1):
         y=ForwardEuler(t,y)
         t=t0 + k*h
 
-        print(k,'\t',t,'\t',y, file=text_file)
+        print(t,'\t',y, file=text_file)
 
     y=y0
     t=t0
@@ -42,16 +44,16 @@ with open("Output_p1.txt", "w") as text_file:
         y=Midpoint(t,y)
         t=t0 + k*h
 
-        print(k,'\t',t,'\t',y, file=text_file)
+        print(t,'\t',y, file=text_file)
     y=y0
     t=t0
 
     print("\nTrapezoid Predictor-Corrector\n", file=text_file)
     for k in range(1,steps+1):
-        y=TPC(t,y,k)
+        y=TPC(t,y)
         t=t0 + k*h
 
-        print(k,'\t',t,'\t',y, file=text_file)
+        print(t,'\t',y, file=text_file)
 
     print("\nActual Values\n", file=text_file)
     for k in range(1,steps+1):
