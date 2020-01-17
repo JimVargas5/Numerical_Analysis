@@ -2,6 +2,7 @@
 # 5.2.2
 # part B)
 import math
+from tabulate import tabulate
 
 t0=0
 y0=1
@@ -38,7 +39,7 @@ def Trapezoid(t,y,h):
 bigTable=[] # 0 to 5
 bigTable.append(['h','FE','M','TPC','BE','T'])
 
-for n in range(2,8):
+for n in range(2,8+1):
     h=2**(-1*n)
     t=t0
 
@@ -74,11 +75,14 @@ for n in range(2,8):
         y_BE=BackwardEuler(t,y_BE,h)
         y_T=Trapezoid(t,y_T,h)
         t=t+h
-        #print(t,actualFunction(t))
     bigTable.append(currentMaxVector)
 
+# with open("Output_p2.txt", "w") as text_file:
+#     for i in range(len(bigTable)): # i: rows
+#         print(bigTable[i][0],'\t',bigTable[i][1],'\t',bigTable[i][2],'\t',bigTable[i][3],'\t',bigTable[i][4],'\t',bigTable[i][5], file=text_file)
+
+
 with open("Output_p2.txt", "w") as text_file:
-    # i:rows
-    # j:columns
-    for i in range(len(bigTable)):
-        print(bigTable[i][0],'\t',bigTable[i][1],'\t',bigTable[i][2],'\t',bigTable[i][3],'\t',bigTable[i][4],'\t',bigTable[i][5],'\n', file=text_file)
+    print(tabulate(bigTable), file=text_file)
+
+    
