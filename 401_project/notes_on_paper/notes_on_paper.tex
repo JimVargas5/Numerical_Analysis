@@ -1,0 +1,60 @@
+\documentclass[12]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\begin{document}
+401 project notes\\
+\large
+\textbf{Rough explanation of the paper}\\ \\ \normalsize
+\textbf{Introduction}
+
+	The setting: solving 2-D Laplace problems using rational function approximations, plus numerical experiments and examples.
+	It turns out using rational function approximations with exponentially clustered points near singularities gets root-exponential convergence.
+	\\
+	Their problem:
+	\begin{align*}
+	\Delta u(z) &= \nabla^2 u(z) = \left( \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}\right)u(z) = 0,\enspace z\in \Omega \\ 		u(z)&=h(z),\enspace z\in \Gamma
+	\end{align*}
+in a domain $\Omega$ bounded piece-wise smoothly (with corners) by $\Gamma$, with specified boundary data $h$. This sort of problem comes up a lot in physics: electrostatics, fluid dynamics, heat conduction...
+	\\
+	The approach:
+	\begin{align*}
+	u(z)&\approx \mathrm{Re}[r(z)] \\
+	r(z) &= \sum_{j=1}^{N_1} \frac{a_j}{z-z_j} + \sum_{j=0}^{N_2} b_j (z-z_*)^j
+	\end{align*}
+with poles ${z_j}$. The crux of the method is using exponentially clustered sample points on the boundary with $h$ near corners, along with exponentially clustered poles outside the boundary near the corners.
+	
+	The structure of the paper consists of: theorems establishing root-exponential convergence with rational approximations, then an algorithm using linear least-squares fitting on the boundary to find coefficients $a_j$ and $b_j$. \\ 
+	
+\noindent
+\textbf{Two Theorems}
+
+	\textbf{(1)} Let $f$ be a bounded analytic function in the slit disk $A_\pi$ that satisfies $f(z)=O(|z|^\delta)$ as $z \to 0$ for some $\delta > 0$, and let $\theta \in (0,\pi /2)$ be fixed. Then for some $0< \rho < 1$ depending on $\theta$ but not on $f$, there exist type $(n-1,n)$ rational functions $\{r_n\}$, $1 \leq n < \inf$, such that
+	\begin{align*}
+	||f-r_n||_\Omega = O(e^{-C \sqrt{n}})
+	\end{align*}
+as $n \to \infty $ for some $C>0$, where $\Omega = \rho A_\theta$. Moreover, each $r_n$ can be taken to have simple poles only at
+	\begin{align*}
+	\beta_j = -e^{-\sigma j/\sqrt{n}}, \enspace 0\leq j \leq n-1,
+	\end{align*}
+where $\sigma >0$ is arbitrary.
+	
+	\textbf{(2)} Let $\Omega$ be a convex polygon with corners $w_1 , \ldots , w_m$, and let $f$ be an analytic function in $\Omega$ that is analytic on the interior of each side segment and can be analytically continued to a disk near each $w_k$ with a slit along the exterior bisector there. Assume $f$ satisfies $f(z)-f(w_k)=O(|z-w_k|^\delta)$ as $z \to w_k$ for each $k$ for some $\delta >0$. There exist degree $n$ rational functions $\{r_n\},\, 1 \leq n < \infty$ such that
+	\begin{align*}
+	||f-r_n||_\Omega=O(e^{-C\sqrt{n}})
+	\end{align*}
+as $n\to \infty$ for some $C>0$. Moreover, each $r_n$ can be taken to have finite poles only at points exponentially clustered along the exterior bisectors at the corners, with arbitrary clustering parameter $\sigma$, as long as the number of poles near each $w_k$ grows at least in proportion to $n$ as $n\to \infty$.
+	
+	Some extensions: These same results hold for $\Omega$ bounded by analytic arcs meeting at corners. Additionally, the authors believe these results are valid also for non-convex domains and $\theta < \pi /2$.\\
+	
+\noindent
+\textbf{Algorithm and Examples}
+
+
+
+
+\end{document}
