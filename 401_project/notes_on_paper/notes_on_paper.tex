@@ -6,6 +6,8 @@
 \usepackage{verbatim}
 \usepackage{amsmath}
 
+%\renewcommand{\baselinestretch}{1.25}
+
 \begin{document}
 401 project notes\\
 \large
@@ -14,13 +16,13 @@
 
 	The setting: solving 2-D Laplace problems using rational function approximations, plus numerical experiments and examples.
 	It turns out using rational function approximations with exponentially clustered points near singularities gets root-exponential convergence.
-	\\
+	
 	Their problem:
 	\begin{align*}
 	\Delta u(z) &= \nabla^2 u(z) = \left( \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}\right)u(z) = 0,\enspace z\in \Omega \\ 		u(z)&=h(z),\enspace z\in \Gamma
 	\end{align*}
 in a domain $\Omega$ bounded piece-wise smoothly (with corners) by $\Gamma$, with specified boundary data $h$. This sort of problem comes up a lot in physics: electrostatics, fluid dynamics, heat conduction...
-	\\
+	
 	The approach:
 	\begin{align*}
 	u(z)&\approx \mathrm{Re}[r(z)] \\
@@ -33,7 +35,11 @@ with poles ${z_j}$. The crux of the method is using exponentially clustered samp
 \noindent
 \textbf{Two Theorems}
 
-	\textbf{(1)} Let $f$ be a bounded analytic function in the slit disk $A_\pi$ that satisfies $f(z)=O(|z|^\delta)$ as $z \to 0$ for some $\delta > 0$, and let $\theta \in (0,\pi /2)$ be fixed. Then for some $0< \rho < 1$ depending on $\theta$ but not on $f$, there exist type $(n-1,n)$ rational functions $\{r_n\}$, $1 \leq n < \inf$, such that
+	The theorems involve an analytic function $f$, while the applications involve a harmonic function $u$. However, and harmonic function $u$ can be the real part of an analytic function, i.e. $f=u+i v$.
+	
+	(***pictures, define $A_\theta$)
+	
+	\textbf{(1)} Let $f$ be a bounded analytic function in the slit disk $A_\pi$ that satisfies $f(z)=O(|z|^\delta)$ as $z \to 0$ for some $\delta > 0$, and let $\theta \in (0,\pi /2)$ be fixed. Then for some $0< \rho < 1$ depending on $\theta$ but not on $f$, there exist type $(n-1,n)$ rational functions $\{r_n\}$, $1 \leq n < \infty$, such that
 	\begin{align*}
 	||f-r_n||_\Omega = O(e^{-C \sqrt{n}})
 	\end{align*}
@@ -49,11 +55,12 @@ where $\sigma >0$ is arbitrary.
 	\end{align*}
 as $n\to \infty$ for some $C>0$. Moreover, each $r_n$ can be taken to have finite poles only at points exponentially clustered along the exterior bisectors at the corners, with arbitrary clustering parameter $\sigma$, as long as the number of poles near each $w_k$ grows at least in proportion to $n$ as $n\to \infty$.
 	
-	Some extensions: These same results hold for $\Omega$ bounded by analytic arcs meeting at corners. Additionally, the authors believe these results are valid also for non-convex domains and $\theta < \pi /2$.\\
+	Some extensions: These same results hold for $\Omega$ bounded by analytic arcs meeting at corners. Additionally, the authors believe these results are valid also for non-convex domains and $\theta < \pi /2$. Experiments show that placing poles along exterior bisector is also not necessary.\\
 	
 \noindent
 \textbf{Algorithm and Examples}
 
+	Probably examples and pictures first.
 
 
 
