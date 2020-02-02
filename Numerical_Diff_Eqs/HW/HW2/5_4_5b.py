@@ -3,6 +3,9 @@
 
 import math
 from tabulate import tabulate
+from matplotlib import pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+pdf = PdfPages('Output_5b.pdf')
 
 t0=0
 y0=1
@@ -22,23 +25,47 @@ def nextStep(t,y,h,i):
 bigTable=[] # 0 to 2
 bigTable.append(['h', 'E_max','Ratio'])
 
+
 for i in range(2):
     bigTable.append(['-----','lambda: '+str(Lambda[i]),'-----'])
     for n in range(2,11+1):
+        running_yk=[y0]
+        running_Actual=[actualFunction(t0)]
+        running_AbsoluteErrors=[abs(actualFunction(t0)-y0)]
+        running_t=[t0]
+
         h=2**(-1*n)
 
         y=y0
         t=t0
         currentMaxVector=[0 for k in range(2+1)]
-        currentMaxVector[0]=h
-        while t<math.pi:
-            temp=abs(actualFunction(t)-nextStep(t,y,h,i))
+        currentMaxVector[0]="2^(-"+str(n)+")"
+        while t<=math.pi:
+            y_next=nextStep(t,y,h,i)
+            temp=abs(actualFunction(t)-y_next)
             if temp > currentMaxVector[1]:
                 currentMaxVector[1]=temp
-
-
-            y=nextStep(t,y,h,i)
+            y=y_next
             t=t+h
+            running_yk.append(y)
+            running_Actual.append(actualFunction(t))
+            running_AbsoluteErrors.append(temp)
+            running_t.append(t)
+
+        fig=plt.figure()
+        plt.subplot(1,2,1)
+        plt.plot(running_t,running_Actual, label='y(t)')
+        plt.plot(running_t,running_yk, label='y_k')
+        plt.title("Lambda: "+str(Lambda[i])+", h=2^(-"+str(n)+")")
+        plt.legend(loc='best')
+
+        plt.subplot(1,2,2)
+        plt.plot(running_t,running_AbsoluteErrors)
+        plt.title("Errors - Lambda: "+str(Lambda[i])+", h=2^(-"+str(n)+")")
+        plt.close()
+        pdf.savefig(fig)
+        
+
         bigTable.append(currentMaxVector)
 
 # bigTable rows 0,1,1+(11-2) are text
@@ -51,5 +78,5 @@ with open("Output_5b.txt", "w") as text_file:
     print(tabulate(bigTable), file=text_file)
 
 
-
+pdf.close()
 
