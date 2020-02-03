@@ -45,8 +45,10 @@ for i in range(2):
             temp=abs(actualFunction(t)-y_next)
             if temp > currentMaxVector[1]:
                 currentMaxVector[1]=temp
+
             y=y_next
             t=t+h
+
             running_yk.append(y)
             running_Actual.append(actualFunction(t))
             running_AbsoluteErrors.append(temp)
@@ -54,17 +56,16 @@ for i in range(2):
 
         fig=plt.figure()
         plt.subplot(1,2,1)
-        plt.plot(running_t,running_Actual, label='y(t)')
+        plt.plot(running_t,running_Actual, label='y(t_k)')
         plt.plot(running_t,running_yk, label='y_k')
-        plt.title("Lambda: "+str(Lambda[i])+", h=2^(-"+str(n)+")")
+        plt.title("Lambda="+str(Lambda[i])+", h=2^(-"+str(n)+")")
         plt.legend(loc='best')
 
         plt.subplot(1,2,2)
         plt.plot(running_t,running_AbsoluteErrors)
-        plt.title("Errors - Lambda: "+str(Lambda[i])+", h=2^(-"+str(n)+")")
+        plt.title("Absolute Errors")
         plt.close()
         pdf.savefig(fig)
-        
 
         bigTable.append(currentMaxVector)
 
