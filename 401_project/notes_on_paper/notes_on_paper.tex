@@ -33,8 +33,23 @@ with poles ${z_j}$. The crux of the method is using exponentially clustered samp
 	
 	The structure of the paper consists of: theorems establishing root-exponential convergence with rational approximations, then an algorithm using linear least-squares fitting on the boundary to find coefficients $a_j$ and $b_j$. 
 	
-	Discussion on holomorphic functions/complex analysis topics?\\ 
+	These are important facts:
 	
+	\textbf{Proposition} If $f$ is holomorphic, then its real and imaginary parts, $u$ and $v$ respectively, are harmonic. 
+	
+	\textbf{Proposition} If $f$ is harmonic, then all its partial derivatives are harmonic.
+	
+	\textbf{Prove $r(z)$ is harmonic (satisfies Laplace's eq.)} (SKETCH) Consider a very simple rational function $f(z)=1/z$. This function can be decomposed as $f(z)=u(x,y)+i\,v(x,y)$, where
+	\begin{align*}
+	u(x,y)=\frac{x}{x^2+y^2} &&
+	v(x,y)=\frac{-y}{x^2+y^2}.
+	\end{align*}
+Taking derivatives will show that $u$ and $v$ satisfy the Cauchy-Riemann equations, which makes $f$ holomorphic and thus $u$ and $v$ harmonic. This result works the same for rational functions more of the form $f=1/(z-A)$ (via a variable substitution), emulating the "Newman" part of $r$. 
+
+	Similarly, if we consider a simple polynomial $g(z)=(z-B)^k$ emulating the "Runge" part of $r$, we can determine that $g$ is holomorphic as well. It is simpler to use the polar form of $g$ in this case.
+	
+	Adding the two cases together and multiplying by constants is enough to show that $r$ must be holomorphic. We will use the real part of $r$, which must be harmonic, to approximate $u$.\\
+
 \noindent
 \textbf{Two Theorems}
 
