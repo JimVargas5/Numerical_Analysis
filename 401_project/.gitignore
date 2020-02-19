@@ -6,3 +6,7 @@ Lightning_Laplace/
 '~WRL2586.tmp'
 *.tmp
 ~.*
+
+*.toc
+*.aux
+*.gz
