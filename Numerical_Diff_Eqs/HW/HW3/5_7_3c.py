@@ -9,9 +9,15 @@ This code outputs a pdf of plots comparing the approximated solution
 and the true solution, which is
     y(t) = exp((t-t0)A) y(0)
 """
+# Python notes:
+# Numpy exp of a matrix returns exp of each entry
+# Scipy expm returns exp of matrix
+# Scipy modules must be imported separately
+
 
 import math
 import numpy as np
+import scipy.linalg as sp
 from tabulate import tabulate
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
@@ -34,8 +40,8 @@ def BackwardEuler(y,h):
 
 def TrueSol(t):
     return np.dot(
-        np.exp((t-t0)*A), y0
-    )
+        sp.expm((t-t0)*A), y0
+    ) # Mind your matrix exponential...
 
 
 # Mind your indexing...
@@ -51,8 +57,6 @@ for h in [1/6, 1/8, 1/16, 1/32]:
     while t<=tmax:
         y=BackwardEuler(y,h)
         t=t+h
-        if h==1/6:
-            print(TrueSol(t))
 
         running_Horizontal.append(y[0])
         running_Vertical.append(y[1])
@@ -60,7 +64,7 @@ for h in [1/6, 1/8, 1/16, 1/32]:
         running_TrueV.append(TrueSol(t)[1])
 
     fig=plt.figure()
-    #plt.plot(running_TrueH, running_TrueV, label='y(t_k)')
+    plt.plot(running_TrueH, running_TrueV, label='y(t_k)')
     plt.plot(running_Horizontal, running_Vertical, label='y_k')
     plt.title("Phase portrait, h="+str(h)+", t in [0,4pi].")
     plt.xlabel('Horizontal direction')
@@ -72,4 +76,7 @@ for h in [1/6, 1/8, 1/16, 1/32]:
 
 
 pdf.close()
+
+# print("Numpy version\n", np.exp(A))
+# print("Scipy version\n", sp.expm(A))
 
