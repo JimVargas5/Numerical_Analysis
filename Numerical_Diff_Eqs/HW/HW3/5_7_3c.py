@@ -4,10 +4,10 @@
 """ 
     This code runs the Backward Euler method on the DE system
     y' = Ay
-where A and y(0) are given. A is a 2x2 matrix and y is in R^2.
+where A and y(t0) are given. A is a 2x2 matrix and y is in R^2.
 This code outputs a pdf of plots comparing the approximated solution
 and the true solution, which is
-    y(t) = exp((t-t0)A) y(0)
+    y(t) = exp((t-t0)A) y(t0)
 """
 # Python notes:
 # Numpy exp of a matrix returns exp of each entry
@@ -18,7 +18,6 @@ and the true solution, which is
 import math
 import numpy as np
 import scipy.linalg as sp
-from tabulate import tabulate
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 pdf=PdfPages('Output_3c.pdf')
