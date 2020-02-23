@@ -11,3 +11,5 @@ Lightning_Laplace/
 *.aux
 *.gz
 *.log
+*.bbl
+*.blg
