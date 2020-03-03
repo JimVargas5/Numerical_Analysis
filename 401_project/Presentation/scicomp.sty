@@ -1,0 +1,100 @@
+
+% Modifications to slides.def and slides.cls
+
+%\setlength{\slidewidth}{9.4in}
+\setlength{\slidewidth}{9.4in}
+%\setlength{\slideheight}{6.4in}
+
+\pagestyle{plain}
+
+\def\linespacing#1{\renewcommand{\baselinestretch}{#1}\small\normalsize}
+\input{amssym.def}
+\input{amssym.tex}
+\usepackage{semlcmss}
+\usepackage{fancybox}
+\usepackage{epic}
+
+\usepackage[pdftex]{graphicx}
+\usepackage[pdftex]{color} %%% black,white, red,green,blue,
+                            %%% cyan,magenta,yellow
+\definecolor{Green}{RGB}{107,142,35}
+%% Forest Green 34, 139, 34
+%% Olive Drab	107, 142, 35
+%%%% http://www.tayloredmktg.com/rgb/
+ \usepackage{thumbpdf}
+ \def\myfig#1#2{\pdfimage height #1 {#2.png}}
+ \pdfpageheight=3.9in
+ \pdfpagewidth=5.2in
+ \pdfhorigin=0.4in
+ \pdfvorigin=0.3in
+\usepackage[plain,Green]{scicompframe}  % Green rectangular frame
+
+\renewcommand\maketitle{{\centering {\normalsize \@title}%
+     \par {\small \@author} \par {\tiny \@date}\par}%
+     \if@titlepage \break \fi}
+
+%\def\endslide{\par\break}
+%\def\endslide{\vfill\par\break}
+
+%\def\rmdefault{lcmss}        % no roman
+%\def\sfdefault{lcmss}
+%\def\ttdefault{lcmtt}
+\def\rmdefault{cmss}        % no roman
+\def\sfdefault{cmss}
+\def\ttdefault{cmtt}
+
+\SetSymbolFont{operators}{normal}     % symbols in cmss font
+                 {OT1}{cmss}{m}{n}
+
+%\def\heading#1{\centerline{\color{red}{\textbf{#1}}}\vspace{2mm}}
+\def\heading#1{\typeout{--- #1 ---}\hskip20pt\color{red}{\bf#1}}
+
+\renewcommand{\baselinestretch}{1.2}
+
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{assumption}{A}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{problem}{Problem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{conjecture}{Conjecture}
+%\newenvironment{proof}
+%{\begin{trivlist} \item[\hskip\labelsep{\it Proof.}]}
+%{\vbox{\hrule\hbox{\vrule height1.4ex\hskip1.4ex\vrule}\hrule}\end{trivlist}}
+\newcounter{remark}
+\def\theremark {\thechapter.\arabic{remark}}
+\newenvironment{remark}
+{\begin{trivlist} 
+   \refstepcounter{remark}
+   \item[\hskip\labelsep{\it Remark\space\theremark.}]}
+{\end{trivlist}}
+
+% Redefine eqnarray as in SIAM style to get rid of extra column spacing
+
+\def\eqnarray{%
+   \stepcounter{equation}%
+   \def\@currentlabel{\p@equation\theequation}%
+   \global\@eqnswtrue
+   \m@th
+   \global\@eqcnt\z@
+   \tabskip\@centering
+   \let\\\@eqncr
+   $$\everycr{}\halign to\displaywidth\bgroup
+       \hskip\@centering$\displaystyle\tabskip\z@skip{##}$\@eqnsel
+%      &\global\@eqcnt\@ne\hskip \tw@\arraycolsep \hfil${##}$\hfil
+      &\global\@eqcnt\@ne \hfil$\displaystyle{{}##{}}$\hfil
+%      &\global\@eqcnt\tw@ \hskip \tw@\arraycolsep
+%         $\displaystyle{##}$\hfil\tabskip\@centering
+      &\global\@eqcnt\tw@ $\displaystyle{##}$\hfil\tabskip\@centering
+      &\global\@eqcnt\thr@@ \hbox to\z@\bgroup\hss##\egroup
+         \tabskip\z@skip
+      \cr
+}
+
+\newpagestyle{mypagestyle}%
+{ \hfil}%
+{\color{Green}{\tiny\sl  \lfoot \hfil Slide~\thepage \hfil \rfoot }}

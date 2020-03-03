@@ -13,3 +13,5 @@ Lightning_Laplace/
 *.log
 *.bbl
 *.blg
+
+*.sty

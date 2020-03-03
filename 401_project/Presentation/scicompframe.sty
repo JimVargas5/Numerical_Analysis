@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% scicompframe.sty
+% 
+% Additional package to the seminar style that adds a
+% UCSD logo at the corner of each slide.
+% 
+% Usage:
+%   \documentclass{seminar}
+%   \usepackage[<options>]{scicompframe}
+%
+%   <options> can be 'blue' or 'black' to choose color
+%   and 'plain', 'shadow', 'double', 'oval' or 'Oval'
+%   to select the shape of the frame.
+%   Default is a black Oval frame.
+%    
+% Mats Bengtsson, 10/12 1997
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{scicompframe}
+
+\RequirePackage{ifthen}
+\newboolean{Green}                   % Default: black
+\newcommand{\framestyle}{\Ovalbox}  % Default: Oval 
+
+\DeclareOption{black}{\setboolean{Green}{false}}
+\DeclareOption{Green}{\setboolean{Green}{true}}
+\DeclareOption{plain}{\renewcommand{\framestyle}{\fbox}}
+\DeclareOption{shadow}{\renewcommand{\framestyle}{\shadowbox}}
+\DeclareOption{double}{\renewcommand{\framestyle}{\doublebox}}
+\DeclareOption{oval}{\renewcommand{\framestyle}{\ovalbox}}
+\DeclareOption{Oval}{\renewcommand{\framestyle}{\Ovalbox}}
+
+\ProcessOptions
+
+\RequirePackage{graphicx}
+\RequirePackage{fancybox}
+\RequirePackage{color}
+
+\newcommand{\addPSUlogo}{%
+  \boxput*(-.97,1)% Left-hand corner
+%  \boxput*(1,1)% Right-hand corner
+  {\setlength{\fboxsep}{1mm}%
+    \colorbox{white}{
+      {\ifthenelse{\boolean{Green}}
+      {\includegraphics[width=8.5mm]{PNG/psu_logo.png}}
+      {\includegraphics[width=8.5mm]{PNG/psu_logo.png}}}}}}
+
+\newslideframe{scicompframe}{
+  \addPSUlogo{\ifthenelse{\boolean{Green}}{\color{Green}}{}%
+    \framestyle{\textcolor{black}{#1}}}}
+
+%\slideframewidth=4pt  % Default
+\slideframewidth=3pt
+
+\slideframe{scicompframe}
