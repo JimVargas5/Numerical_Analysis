@@ -179,8 +179,7 @@ The Newman Part: built to handle corners.
 \begin{multicols}{2}
 \begin{itemize}
 	\item The terms $z_j$ are poles, exponentially clustered near a corner on the exterior of $\Omega$ (works for spacing scaled at least $O(n^{-1/2})$).
-	\item "Rational functions are more powerful than polynomials for approximating functions near singularities..."
-	\footnote{Lloyd N. Trefethen. 2013. Approximation theory and approximation practice, Society for Industrial and Applied Mathematics.}
+	\item "Rational functions are more powerful than polynomials for approximating functions near singularities..."\footnote{Lloyd N. Trefethen. 2013. Approximation theory and approximation practice, Society for Industrial and Applied Mathematics.}
 \end{itemize}
 \includegraphics[scale=4]{./PNG/corner_nodes_illust}
 \end{multicols}
@@ -232,11 +231,11 @@ The function $f$ can be decomposed as $f=u+iv$, where
 u(x,y)=\frac{x}{x^2+y^2} &&
 v(x,y)=\frac{-y}{x^2+y^2}.
 \end{align*}
-Taking derivatives will show that $u$ and $v$ satisfy the Cauchy-Riemann equations, ${\partial}_x u={\partial}_y v$, ${\partial}_y u=-{\partial}_x v$, meaning $f$ is harmonic.
+Taking derivatives will show that $u$ and $v$ satisfy the Cauchy-Riemann equations, ${\partial}_x u={\partial}_y v$, ${\partial}_y u=-{\partial}_x v$, meaning $f$ is (holomorphic, and thus) harmonic.
 
 Writing $g$ in polar form, then in terms of sines and cosines is enough to see $g$ is harmonic:
 \begin{align*}
-g(z)=\rho e^{i k \theta} = \rho \cos{(k\theta)} + i \sin{k\theta} .
+g(z)=\rho e^{i k \theta} = \rho [\cos{(k\theta)} + i \sin{(k\theta)}] .
 \end{align*}
 Adding these templates, applying translations and scaling as necessary give us our result.
 \end{slide} %%% 7b
@@ -302,6 +301,84 @@ Let $\Omega$ be a convex polygon with corners $w_1 , \ldots , w_m$, and let $f$ 
 	\end{align*}
 as $n\to \infty$ for some $C>0$. Moreover, each $r_n$ can be taken to have finite poles only at points exponentially clustered along the exterior bisectors at the corners, with arbitrary clustering parameter $\sigma$, as long as the number of poles near each $w_k$ grows at least in proportion to $n$ as $n\to \infty$.
 \end{slide} %%% 11
+
+
+
+
+\begin{slide} %%% 12
+\large Second Theorem: the idea\footnote{Image from Gopal, A., \& Trefethen, L. N. (2019). Solving Laplace Problems with Corner Singularities via Rational Functions. SIAM Journal on Numerical Analysis.}
+
+\small
+\includegraphics[scale=0.4]{./PNG/polygon_illust}\\
+Split $f$ into $2m$ terms, a "Newman" part and a "Runge" part:
+\begin{align*}
+f=\sum_{k=1}^m f_k + \sum_{k=1}^m g_k.
+\end{align*}
+The Runge part can be handled by previously established results, and the Newman part can be handled by applying the first theorem to each corner.
+\end{slide} %%% 12
+
+
+
+
+\begin{slide} %%% 13
+\large Some extensions \\
+
+\small
+Numerical experiments show that:
+\begin{itemize}
+	\item We can get root exponentially good approximations on non-convex domains;
+	\item We're not limited to sectors and convex polygons, we can have curvy edges.
+\end{itemize}
+These theorems apply to an analytic function $f$, but our problem involves a harmonic $u$. 
+
+If we assume $u$ satisfies the corner behavior needed and $\Omega$ is simply connected, then so will a $v$, where we can have an $f=u+iv$.
+\end{slide} %%% 13
+
+
+
+
+\begin{slide} %%% 14
+\large The Algorithm 
+\small
+\begin{table}[h]
+	\begin{tabular}{l}
+		1. Define boundary $\Gamma$, corners $w_1,\ldots, w_m$, boundary function $h$,\\ tolerance $\varepsilon$.	\\
+		2. For increasing values of $n$ with $\sqrt{n}$	approximately evenly spaced; \\
+		\: 2a. fix $N_1=O(mn)$ poles $1/(z-z_k)$ clustered outside the corners; \\
+		\: 2b. fix $N_2+1=O(n)$ monomials $1,(z-z_*),\ldots,(z-z_*)^{N_2}$\\ and set $N=N_1+N_2+1$; \\
+		\: 2c. choose $M\approx 3N$ sample points on a boundary, also clustered\\ near corners; \\
+		\: 2d. evaluate at sample points to obtain an $M\times N$ matrix $A$\\ and $M$-vector $b$; \\
+		\: 2e. solve the least-squares problem $Ax\approx b$ for the coefficient vector $x$; \\
+		\: 2f. exit loop if $||Ax-b||_\infty < \varepsilon$ or if $N$ is too large or the error is growing. \\
+		3. Confirm accuracy by checking the error on a finer boundary mesh. \\
+		4. Construct a function to evaluate $r(z)$ based on computed\\ coefficients $x$.
+	\end{tabular}
+\end{table}
+\end{slide} %%% 15
+
+
+
+
+\begin{slide} %%% 16
+\large The code \\
+\small
+Code is branded "Lightning Laplace." We enter:
+\begin{itemize}
+	\item Corners of a polygonal-ish domain in $\mathds{C}$;
+	\item boundary data in the form of a (real) function handle(s), or scalar values, corresponding to the edges.
+\end{itemize}
+Errors are computed by comparing the procedure with a finer sampling (so not a true error).\\
+\begin{center}
+\includegraphics[scale=4]{./PNG/corner_nodes_illust}
+\end{center}
+\end{slide} %%% 16
+
+
+
+
+\begin{slide} %%% 17
+
+\end{slide} %%% 17
 
 
 
